@@ -23,16 +23,13 @@ class PagesController < ApplicationController
   def loginA
     username = params[:login][:username]
     password = params[:login][:password]
-    if (User.find_by_email(username).nil?) and (User.find_by_phone(username).nil?)
-      flash[:notice] = "Incorrect phone number/email"
+    if (User.find_by_phone(username).nil?)
+      flash[:notice] = "Incorrect phone number"
     end
-    
-    if (not User.find_by_email(username).nil?) and (User.find_by_email(username).password == password)
-      flash[:notice] = "Welcome email"
-      session[:account] = User.find_by_email(username).id
-    elsif (not User.find_by_phone(username).nil?) and (User.find_by_phone(username).password == password)
+    if (not User.find_by_phone(username).nil?) and (User.find_by_phone(username).password == password)
     flash[:notice] = "Welcome phone"
       session[:account] = User.find_by_phone(username).id
+      redirect_to "/pages/board"
     end
     
     redirect_to "/pages/login"
@@ -74,20 +71,22 @@ class PagesController < ApplicationController
     #msg.name << THE NAME OF THE CLIENT
     #msg.
     
-    redirect_to "/"
+    redirect_to "/pages/board"
   end
   
   def pickUp
     clientPhone = params[:bananna][:ph]
     if clientPhone == User.find(session[:account]).phone
       redirect_to "/pages/board"
+    else
+      # send to the client
+      send_sms(clientPhone, User.find(session[:account]).name + " has decided to pick up your order. You may contact " + User.find(session[:account]).name+ " at " + User.find(session[:account]).phone)
+      # send to the delivery guy
+      send_sms(User.find(session[:account]).phone, "You are picking up " + User.find_by_phone(clientPhone).name + "'s food. You may contact him/her at " + clientPhone)
+      Post.find(params[:bananna][:idPost]).destroy
+     redirect_to "/"
     end
-    # send to the client
-    send_sms(clientPhone, User.find(session[:account]).name + " has decided to pick up your order. You may contact " + User.find(session[:account]).name+ " at " + User.find(session[:account]).phone)
-    # send to the delivery guy
-    send_sms(User.find(session[:account]).phone, "You are picking up " + User.find_by_phone(clientPhone).name + "'s food. You may contact him/her at " + clientPhone)
-    Post.find(params[:bananna][:idPost]).destroy
-    redirect_to "/"
+    
   end
     
   def getSchool
@@ -96,8 +95,9 @@ class PagesController < ApplicationController
   def confirm
     code = params[:cc][:code]
     if not User.find_by_code(code).nil?
+      session[:account] = User.find_by_code(code).id
       User.find_by_code(code).update_column(:code, nil)
-      redirect_to "/pages/index"
+      redirect_to "/pages/board"
     else
       flash[:notice] = "Verification code is incorrect"
       redirect_to "/pages/verify"

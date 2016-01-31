@@ -27,7 +27,6 @@
         #bg {
             background-color: rgba(0,0,0,0.7);
             width: 50%;
-            height:500%;
         }
         #form2 {
             text-align:center;
@@ -50,7 +49,7 @@
     </div>
     </div>
 <div id="bg">
-<div id="form2">
+<div id="form2"><br>
 <h3>register.</h3>
 <%=form_for :register, url: pages_register_path do |f|%>
     <%=f.text_field :name, placeholder: "Name", class: 'form-control'%>

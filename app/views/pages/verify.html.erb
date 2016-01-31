@@ -1,18 +1,27 @@
 <center><br><br><br><br><br><br>
-<H1>a verification code</H1>
-<h2>has been sent to your phone.</h2>
+<H1>A verification code</H1>
+<h2>has been sent to your phone!</h2>
 <%if flash[:notice]%>
     <%=flash[:notice]%>
 <%end%>
-<p>Please enter your access code to enter campus dash.</p>
+<p>Please enter your access code to enter campus dash!</p>
 <%=form_for :cc, url: pages_confirm_path do |f|%>
     <%=f.text_field :code, size:"5"%>
     <%=f.submit "enter"%>
 <%end%>
 <style>
-    body { 
-        background-color: white;
-        background-size: 100% auto;
+    H1{
+        color:black;
+    }
+    h2{
+        color:black;
+    }
+    p{
+        color:black;
+    }
+    body{
+      background-image:url("http://i.imgur.com/bBjvElg.jpg");
+      background-size: 100% auto;
     }
 </style>
 </center>
