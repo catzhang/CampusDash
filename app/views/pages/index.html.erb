@@ -1,0 +1,166 @@
+<%=form_for :logout, url: pages_logoff_path do |f|%>
+    <%=f.submit "Sign out"%>
+<%end%>
+<style>
+    #form {
+        text-align: center;
+        width: 50%;
+        float: center;
+
+    }
+    
+    #hide {
+        visibility: hidden;
+    }
+    
+    #info_food{
+        text-align:center;
+        height: 150%;
+    }
+    
+    form {
+        text-align: center;
+        width: 95%; 
+        opacity: 0.9;
+    }
+    .form-control {
+        width: 95%;
+        opacity: 0.9;
+    }
+    input {
+        text-align: center;
+        
+    }
+    text_area {
+        height: 100%;
+    }
+    #bgForm {
+        background-color: rgba(0,0,0,0.5);
+        width:50%;
+    }
+    #infoform {
+        width: 80%;
+        float: center;
+    }
+    h1 {
+        color: white;
+    }
+    body {
+        background-image:url("http://i.imgur.com/bSgW2Gu.jpg");
+        background-size: 100% auto;
+    }
+    p {
+        color: white;
+    }
+    a {
+        width: 100%;
+
+    }
+
+
+    .btn-button-name.btn-lg {
+    border: 3px solid #000000;
+}
+.btn-button-name.btn-sm {
+    border: 1px solid #000000;
+}  
+.btn-button-name.btn-xs {
+    border: 1px solid #000000;
+}  
+
+submit {
+    display : none;
+}
+
+.btn-button-name, .btn-button-name:link, .btn-button-name:visited {
+    background-color: transparent;
+    border-radius: 0;
+    color: white;
+    border: 2px solid #6f5499;
+}
+.btn-button-name:active, .btn-button-name:hover {
+    background-color: #6f5499;
+    color: #fff
+}
+
+</style>
+
+<script>
+    function validateForm() {
+        
+        var x = document.getElementById('info_name');
+        if (x.value.length <=0 || x.value == "") {
+        alert("Name must be filled out");
+        return false;
+        }
+        
+        var x2 = document.getElementById('info_restaurant')
+        if (x2.length <=0 || x2.value == "") {
+        alert("Restaurant name must be filled out");
+        return false;
+        }
+        
+        var x3 = document.getElementById('info_food');
+        if (x3.length <=0 || x3.value == "") {
+        alert("Your order must be filled out");
+        return false;
+        }
+        
+        var x4 = document.getElementById('info_number');
+        if ((x4.length <=0 || x4.value == "") && (x4.length != 10 || x4.length != 11)) {
+        alert("Your phone number must be filled out");
+        return false;
+        
+        for(int x = 0; x <= x4.length; x++){
+            if(x4.chartAt(x) == '-' || x4.chartAt(x) == ')' ){
+                
+                x4.replaceAt(x, '');
+            }
+            
+            
+        }
+        
+        document.getElementById('info_number').value = x4;  
+            
+            
+            
+        }
+        
+        
+        var x5 =document.getElementById('info_fromaddress');
+        if (x5.length <=0 || x5.value == "") {
+        alert("Your pickup location must be filled out");
+        return false;
+        }
+    }
+    
+</script>
+
+<center><br><br><br><br>
+
+<div id="bgForm">
+<br>
+<h1>What's good, <%=User.find(session[:account]).name%>?</h1>
+<p>order food on the fly with campusDash.</p>
+<div id="form">
+    
+    <center>
+    
+        <br>
+        <%=form_for :info, url: pages_sendRequest_path do |f|%>
+            <div id ="norounded"></div>
+            <%=f.text_field :restaurant , placeholder: "Restaurant Name", class: 'form-control'%>
+            <%=f.text_area :food, placeholder: "Your order", class: 'form-control'%>
+            <div id="hide">
+                <%=f.submit "Submit food req.", id:"submitShit",display:"none", onclick: "return validateForm();"%>
+            </div>    
+              <a href="#" title="" onclick="document.getElementById('submitShit').click();"  class="btn btn-button-name btn-lg">order</a>
+              
+        <%end%>
+        <br><br>
+        <br>
+    </div>
+    </center>
+    
+</div>
+</center>

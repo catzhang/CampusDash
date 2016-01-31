@@ -1,0 +1,138 @@
+<%if flash[:notice]%>
+    <%=flash[:notice]%>
+<%end%>
+
+<center>
+<br><br>
+
+    <style>
+        #bg1 {
+            background-color: rgba(0,0,0,0.7);
+            width:50%;
+        }
+        h1 {
+            color:white;
+        }
+        input {
+            text-align: center;
+        }
+        #form {
+            text-align: center;
+            float: center;
+            width:30%;
+        }
+        h3 {
+            color:white;
+        }
+        #bg {
+            background-color: rgba(0,0,0,0.7);
+            width: 50%;
+            height:500%;
+        }
+        #form2 {
+            text-align:center;
+            float:center;
+            width:30%;
+        }
+    </style>
+    
+    <div id="bg1">
+        <br>
+        <h1>campusDash</h1>
+        <h3>login.</h3>
+    <div id="form">
+        <%=form_for :login, url: pages_loginA_path do |f|%>
+            <%=f.text_field :username, placeholder: "Phone number", class: 'form-control' %>
+            <%=f.password_field :password, placeholder: "Password", class: 'form-control'%>
+            <br>
+            <%=f.submit "Login", onclick: "return validateLogin();" %>
+        <%end%>
+    </div>
+    </div>
+<div id="bg">
+<div id="form2">
+<h3>register.</h3>
+<%=form_for :register, url: pages_register_path do |f|%>
+    <%=f.text_field :name, placeholder: "Name", class: 'form-control'%>
+    <%=f.text_field :phoneNumber, placeholder: "Phone number", class: 'form-control'%>
+    <%=f.text_field :school, placeholder: "School name", class: 'form-control'%>
+    <%=f.password_field :password, placeholder: "Password", class: 'form-control'%>
+    <%=f.password_field :cpassword, placeholder: "Confirm password", class: 'form-control'%>
+    <%=f.submit "Register", onclick: "return validateRegister();"%>
+<%end%>
+</div>
+</div>
+<br><br><br>
+<style>
+
+    body { 
+        background-image:url("http://i.imgur.com/Nv2I9CQ.jpg"); 
+        background-size: 100% auto;
+    }
+</style>
+
+<script>
+    function validateLogin() {
+        
+        var x = document.getElementById('login_username');
+        if (x.value.length <=0 || x.value == "") {
+        alert("Username must be filled out");
+        return false;
+        }
+        
+        var x2 = document.getElementById('login_password');
+        if (x2.value.length <=0 || x2.value == "") {
+        alert("Password must be filled out");
+        return false;
+        }
+        
+    }
+
+    function validateRegister() {
+        
+        var x = document.getElementById('register_name');
+        if (x.value.length <=0 || x.value == "") {
+        alert("Name must be filled out");
+        return false;
+        }
+        
+      
+        
+        var x3 = document.getElementById('register_phoneNumber');
+        if (x3.length <=0 || x3.value == "") {
+        alert("Your phone number must be filled out");
+        return false;
+        }
+        
+        var x4 = document.getElementById('register_school');
+        if (x4.length <=0 || x4.value == "") {
+        alert("School name must be filled out");
+        return false;
+        }
+        
+        var x5 =document.getElementById('register_password');
+        if (x5.length <=0 || x5.value == "") {
+        alert("Password must be filled out");
+        return false;
+        }
+        
+        var x6 =document.getElementById('register_cpassword');
+        if (x6.length <=0 || x6.value == "") {
+        alert("Confirm password must be filled out");
+        return false;
+        }
+        
+        if (!x5.equals(x6))
+        {
+            alert("Your passwords don't match. Please enter your password again.");
+            return false;
+        }
+    }
+    
+</script>
+
+
+    
+    
+    
+</center>

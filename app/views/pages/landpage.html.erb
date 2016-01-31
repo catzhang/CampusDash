@@ -1,0 +1,23 @@
+<style>
+    h1 {
+        text-align:center;
+    }
+    
+    p {
+        text-align: center;
+    }
+    d {
+        text-align: center;
+    }
+    body{
+        background-image:url("http://i.imgur.com/aUypbd5.jpg");
+        background-size: 100% auto;
+    }
+</style>
+<br><br><br><br><br>
+<h1>CampusDash</h1>
+<p>Hey, what school do you go to?</p>
+<d><%=form_for :school, url: pages_getSchool_path do |f|%>
+    <%=f.text_field :school%>
+    <%=f.submit "Get School"%></d>
+<%end%>
