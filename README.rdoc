@@ -1,1 +1,2 @@
 README.rdoc
+this is a cool app!
